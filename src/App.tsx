@@ -1,8 +1,15 @@
 import React, { useState } from "react";
 import { useQuery } from "react-query";
 // Components
-import LinearPrress, { Badge, Drawer, Grid } from "@material-ui/core";
-import { AddShoppingCart, ErrorOutline } from "@material-ui/icons";
+import Item from "./components/Item";
+import LinearPrress, {
+  Badge,
+  CircularProgress,
+  Drawer,
+  Grid,
+  LinearProgress,
+} from "@material-ui/core";
+import { AddShoppingCart, ErrorOutline, WrapText } from "@material-ui/icons";
 // Styles
 import { Wrapper } from "./App.styles";
 // Types
@@ -22,7 +29,31 @@ const getProducts = async (): Promise<CartItemType[]> =>
 const App = () => {
   const { data, isLoading, error } = useQuery(["products"], getProducts);
 
-  return <div className="App">hello world</div>;
+  const getTotalItems = () => null;
+
+  const handleAddToCart = (clickedItem: CartItemType) => null;
+
+  const handleRemoveFromCart = () => null;
+
+  if (isLoading) return <LinearProgress />;
+  if (error)
+    return (
+      <div>
+        <pre>{error}</pre>
+      </div>
+    );
+
+  return (
+    <Wrapper>
+      <Grid container spacing={3}>
+        {data.map((item: CartItemType) => (
+          <Grid item key={item.id} xs={12} sm={4}>
+            <Item item={item} handleAddToCart={handleAddToCart} />
+          </Grid>
+        ))}
+      </Grid>
+    </Wrapper>
+  );
 };
 
 export default App;
