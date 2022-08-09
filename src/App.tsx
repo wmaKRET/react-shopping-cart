@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useQuery } from "react-query";
 // Components
 import Item from "./components/Item";
+import Cart from "./components/Cart";
 import LinearPrress, {
   Badge,
   CircularProgress,
@@ -53,7 +54,11 @@ const App = () => {
         open={isCartOpen}
         onClose={() => setIsCartOpen(false)}
       >
-        Cart goes here
+        <Cart
+          cartItems={cartItems}
+          addToCart={handleAddToCart}
+          removeFromCart={handleRemoveFromCart}
+        />
       </Drawer>
       <StyledButton onClick={() => setIsCartOpen(true)}>
         <Badge badgeContent={getTotalItems(cartItems)} color="error">
